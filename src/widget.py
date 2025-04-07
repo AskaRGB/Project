@@ -1,28 +1,28 @@
 from datetime import datetime
 
+from masks import get_mask_account, get_mask_card_number
+
 
 def mask_account_card(type_card_or_account: str) -> str:
     """ "Функция маскировки номера карты или банковского счета"""
-    digit_number = ""
-    str_symbols = ""
+    digit = ""
+    letters = ""
+
     for symbols in type_card_or_account:
         if symbols.isdigit():
-            digit_number += symbols
+            digit += symbols
         else:
-            str_symbols += symbols
+            letters += symbols
+    if len(digit) != 16 and len(digit) != 20:
+        return "Неверно заполнены данные"
 
-    if len(digit_number) == 16:
-        digit_number = f"{str_symbols} {digit_number[:4]} {digit_number[4:6]}** " f"**** {digit_number[-4:]}"
-    elif 16 < len(digit_number) < 20 or len(digit_number) < 16:
-        return "Номер карты введен не корректно"
+    elif len(digit) == 16:
+        mask_card = get_mask_card_number(digit)
+        return f"{letters} {mask_card}"
 
-    elif len(digit_number) == 20:
-        digit_number = f"{str_symbols} **{digit_number[-4:]}"
-
-    else:
-        return "Номер счета введен не корректно"
-
-    return digit_number
+    elif len(digit) == 20:
+        mask_account = get_mask_account(digit)
+        return f"{letters} {mask_account}"
 
 
 def get_date(date_string: str) -> str:
@@ -31,3 +31,6 @@ def get_date(date_string: str) -> str:
     formate_date = date_object.strftime("%d.%m.%Y")
 
     return formate_date
+
+
+print(mask_account_card("Счет 646864736788947795"))
