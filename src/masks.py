@@ -11,6 +11,7 @@ def get_mask_card_number(card_number: str) -> str:
         return card_number_mask
 
 
+# print(get_mask_card_number('ffasfdasfasdvav'))
 def get_mask_account(account_number: str) -> str:
     """Маскировка номера счета"""
     if len(account_number) != 20:
@@ -18,5 +19,3 @@ def get_mask_account(account_number: str) -> str:
     else:
         mask_account_number = f"**{account_number[-4:]}"
         return mask_account_number
-
-
