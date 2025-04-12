@@ -1,9 +1,9 @@
 from datetime import datetime
 
-from masks import get_mask_account, get_mask_card_number
+from .masks import get_mask_account, get_mask_card_number
+#from masks import get_mask_account, get_mask_card_number
 
-
-def mask_account_card(type_card_or_account: str) -> str:
+def mask_account_card(type_card_or_account: str) -> str | None:
     """ "Функция маскировки номера карты или банковского счета"""
     digit = ""
     letters = ""
@@ -27,10 +27,15 @@ def mask_account_card(type_card_or_account: str) -> str:
 
 def get_date(date_string: str) -> str:
     """Функция преобразования даты"""
-    date_object = datetime.fromisoformat(date_string)
-    formate_date = date_object.strftime("%d.%m.%Y")
-
+    try:
+        date_object = datetime.fromisoformat(date_string)
+        formate_date = date_object.strftime("%d.%m.%Y")
+    except ValueError:
+        return 'Данные введены не корректно'
     return formate_date
 
 
-print(mask_account_card("Счет 646864736788947795"))
+#print(mask_account_card("Visa Platinum 7000792289606361"))
+#print(get_date('2024-03-11T02:26:18.671407'))
+
+
