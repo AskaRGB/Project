@@ -12,6 +12,6 @@ def sort_by_date(list_of_dictionaries: list, sorting_direction: bool = True) -> 
 
 
 #print(filter_by_state([{'id': 41428829, 'date': '2019-07-03T18:35:29.512364'}, {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'}]))
-print(sort_by_date([{'id': 41428829, 'state': 'EXECUTED', 'date': '2024.11.11:35:29.512364'},
-                    {'id': 41428829, 'state': 'EXECUTED', 'date': '2022.09.21:35:29.512364'},
-                    {'id': 41428829, 'state': 'EXECUTED', 'date': '2023.08.12:35:29.512364'}]))
+#print(sort_by_date([{'id': 41428829, 'state': 'EXECUTED', 'date': '2024.11.11:35:29.512364'},
+#                    {'id': 41428829, 'state': 'EXECUTED', 'date': '2022.09.21:35:29.512364'},
+#                    {'id': 41428829, 'state': 'EXECUTED', 'date': '2023.08.12:35:29.512364'}]))
