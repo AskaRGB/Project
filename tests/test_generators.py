@@ -7,6 +7,7 @@ from src.generators import filter_by_currency, card_number_generator, transactio
     "value, expected",
     [
         (
+            "USD",
             [
                 {
                     "id": 939719570,
@@ -18,84 +19,42 @@ from src.generators import filter_by_currency, card_number_generator, transactio
                     "to": "Счет 11776614605963066702",
                 },
                 {
-                    "id": 939719570,
+                    "id": 142264268,
                     "state": "EXECUTED",
-                    "date": "2018-06-30T02:08:58.425572",
-                    "operationAmount": {"amount": "9824.07", "currency": {"name": "RUB", "code": "USD"}},
-                    "description": "Перевод организации",
-                    "from": "Счет 75106830613657916952",
-                    "to": "Счет 11776614605963066702",
+                    "date": "2019-04-04T23:20:05.206878",
+                    "operationAmount": {"amount": "79114.93", "currency": {"name": "USD", "code": "USD"}},
+                    "description": "Перевод со счета на счет",
+                    "from": "Счет 19708645243227258542",
+                    "to": "Счет 75651667383060284188",
                 },
-            ],
-            [
                 {
-                    "id": 939719570,
+                    "id": 895315941,
                     "state": "EXECUTED",
-                    "date": "2018-06-30T02:08:58.425572",
-                    "operationAmount": {"amount": "9824.07", "currency": {"name": "USD", "code": "USD"}},
-                    "description": "Перевод организации",
-                    "from": "Счет 75106830613657916952",
-                    "to": "Счет 11776614605963066702",
+                    "date": "2018-08-19T04:27:37.904916",
+                    "operationAmount": {"amount": "56883.54", "currency": {"name": "USD", "code": "USD"}},
+                    "description": "Перевод с карты на карту",
+                    "from": "Visa Classic 6831982476737658",
+                    "to": "Visa Platinum 8990922113665229",
                 },
             ],
         ),
-        (
-            [
-                {
-                    "id": 939719570,
-                    "state": "EXECUTED",
-                    "date": "2018-06-30T02:08:58.425572",
-                    "operationAmount": {"amount": "9824.07", "currency": {"name": "RUB", "code": "USD"}},
-                    "description": "Перевод организации",
-                    "from": "Счет 75106830613657916952",
-                    "to": "Счет 11776614605963066702",
-                }
-            ],
-            [],
-        ),
+        ("", ["валюта введена не корректно"]),
     ],
 )
-def test_filter_by_currency(value, expected):
-    test_value = list(filter_by_currency(value, "USD"))
+def test_filter_by_currency(value_test_filter_by_currency, value, expected):
+    test_value = filter_by_currency(value_test_filter_by_currency, value)
     assert list(test_value) == expected
 
 
 @pytest.mark.parametrize(
-    "value_transaction, expected_transaction",
+    "expected_transaction",
     [
-        (
-            [
-                {
-                    "id": 939719570,
-                    "state": "EXECUTED",
-                    "date": "2018-06-30T02:08:58.425572",
-                    "operationAmount": {"amount": "9824.07", "currency": {"name": "USD", "code": "USD"}},
-                    "description": "Перевод организации",
-                    "from": "Счет 75106830613657916952",
-                    "to": "Счет 11776614605963066702",
-                }
-            ],
-            ["Перевод организации"],
-        ),
-        (
-            [
-                {
-                    "id": 939719570,
-                    "state": "EXECUTED",
-                    "date": "2018-06-30T02:08:58.425572",
-                    "operationAmount": {"amount": "9824.07", "currency": {"name": "USD", "code": "USD"}},
-                    "description": "",
-                    "from": "Счет 75106830613657916952",
-                    "to": "Счет 11776614605963066702",
-                }
-            ],
-            [""],
-        ),
+        "Перевод организации",
     ],
 )
-def test_transaction_descriptions(value_transaction, expected_transaction):
-    test_value_transaction = transaction_descriptions(value_transaction)
-    assert list(test_value_transaction) == expected_transaction
+def test_transaction_descriptions(value_test_filter_by_currency, expected_transaction):
+    test_value_transaction = transaction_descriptions(value_test_filter_by_currency)
+    assert next(test_value_transaction) == expected_transaction
 
 
 @pytest.mark.parametrize("value_start_card, value_stop_card, expected_card", [(1, 1, ["0000 0000 0000 0001"])])
